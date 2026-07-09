@@ -37,7 +37,7 @@ namespace api.Controllers
                 return NotFound();
             }
 
-            return Ok(product);
+           return product;
         }
 
 
