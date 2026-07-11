@@ -50,7 +50,7 @@ namespace api.Controllers
 
 
 
-        [HttpGet("type")]
+        [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
         {
             var types = await _repo.GetProductTypesAsync();
