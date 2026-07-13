@@ -1,0 +1,6 @@
+@ski_net_demo_HostAddress = http://localhost:5190
+
+GET {{ski_net_demo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
