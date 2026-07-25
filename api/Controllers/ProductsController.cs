@@ -1,8 +1,10 @@
 
+using System.ComponentModel;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
+using ski_net_demo.Dtos;
 using SQLitePCL;
 
 namespace api.Controllers
@@ -41,7 +43,7 @@ namespace api.Controllers
 
         [HttpGet("{id}")]
 
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
             var product = await _productsRepo.GetEntityWithSpec(spec);
@@ -51,7 +53,18 @@ namespace api.Controllers
                 return NotFound();
             }
 
-            return Ok(product);
+            return new ProductToReturnDto
+            {
+                 
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                PictureUrl = product.PictureUrl,
+                Price = product.Price,
+                ProductBrand = product.ProductBrand?.Name,  
+                ProductType = product.ProductType?.Name,
+
+            };
         }
 
 
