@@ -1,5 +1,6 @@
 
 using System.ComponentModel;
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -18,15 +19,20 @@ namespace api.Controllers
 
        readonly IGenericRepository<ProductType> _productsTypeRepo;
 
+       readonly IMapper _mapper;
+
         public ProductsController(
             IGenericRepository<Product> productsRepo,
             IGenericRepository<ProductBrand> productsBrandRepo,
-            IGenericRepository<ProductType> productsTypeRepo
+            IGenericRepository<ProductType> productsTypeRepo,
+            IMapper mapper
             )
         {
             _productsRepo = productsRepo;
             _productsBrandRepo = productsBrandRepo;
             _productsTypeRepo = productsTypeRepo;
+            _mapper = mapper;
+
            
         }
 
@@ -36,7 +42,8 @@ namespace api.Controllers
         {
             var spec = new ProductsWithTypesAndBrandsSpecification();
             var products = await _productsRepo.ListAsync(spec);
-            return Ok(products);
+            var mappedProductsToDto =  _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+            return Ok(mappedProductsToDto);
         }
 
 
