@@ -136,3 +136,4 @@ C:\Users\there\OneDrive\Desktop\ski-net-demo\api\obj\Debug\net8.0\staticwebasset
 C:\Users\there\OneDrive\Desktop\ski-net-demo\api\obj\Debug\net8.0\swae.build.ex.cache
 C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\ski-net-demo.staticwebassets.runtime.json
