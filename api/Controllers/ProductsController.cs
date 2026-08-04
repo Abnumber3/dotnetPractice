@@ -5,14 +5,13 @@ using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
+using ski_net_demo.Controllers;
 using ski_net_demo.Dtos;
 using SQLitePCL;
 
 namespace api.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : BaseApiController
     {
        readonly IGenericRepository<Product> _productsRepo;
        readonly IGenericRepository<ProductBrand> _productsBrandRepo;
