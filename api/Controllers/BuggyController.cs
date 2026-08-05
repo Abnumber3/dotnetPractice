@@ -36,7 +36,7 @@ namespace ski_net_demo.Controllers
         {
             var thing = _context.Products.Find(123);
 
-            var thingToReturn = thing?.ToString();
+            var thingToReturn = thing!.ToString();
 
             return Ok(thingToReturn);
         }
