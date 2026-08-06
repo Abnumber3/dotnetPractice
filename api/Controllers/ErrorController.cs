@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ski_net_demo.Controllers
 {
     [Route("errors/{code}")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController: BaseApiController
     {
         public IActionResult Error(int code)

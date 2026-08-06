@@ -7,6 +7,7 @@ using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 using ski_net_demo.Controllers;
 using ski_net_demo.Dtos;
+using ski_net_demo.Errors;
 using SQLitePCL;
 
 namespace api.Controllers
@@ -56,7 +57,7 @@ namespace api.Controllers
 
             if(product == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
 
             return new ProductToReturnDto
