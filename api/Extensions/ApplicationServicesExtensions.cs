@@ -35,6 +35,10 @@ namespace ski_net_demo.Extensions
                     .SelectMany(x => x.Value?.Errors)
                     .Select(x => x.ErrorMessage).ToArray();
 
+
+
+                    
+
                     var errorResponse = new ValidationErrorResponse
                     {
                         Errors = errors

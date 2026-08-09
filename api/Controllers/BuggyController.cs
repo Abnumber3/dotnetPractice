@@ -18,6 +18,9 @@ namespace ski_net_demo.Controllers
             _context = context;
         }
 
+
+
+
         [HttpGet("notfound")]
         public ActionResult GetNotFoundRequest()
         {
@@ -29,6 +32,8 @@ namespace ski_net_demo.Controllers
             }
             return Ok();
         }
+
+
 
 
           [HttpGet("servererror")]
@@ -43,7 +48,7 @@ namespace ski_net_demo.Controllers
 
 
 
-          [HttpGet("badrequest")]
+        [HttpGet("badrequest")]
         public ActionResult GetBadRequest()
         {
             return BadRequest();
@@ -51,7 +56,7 @@ namespace ski_net_demo.Controllers
 
 
 
-          [HttpGet("badrequest/{id}")]
+        [HttpGet("badrequest/{id}")]
         public ActionResult GetNotFoundRequest(int id)
         {
             return Ok();
