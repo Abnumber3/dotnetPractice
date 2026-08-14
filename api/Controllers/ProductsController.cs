@@ -38,7 +38,7 @@ namespace api.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(ProductSpecParams productParams )
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productParams )
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(productParams); 
 
