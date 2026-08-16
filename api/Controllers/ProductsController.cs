@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ski_net_demo.Controllers;
 using ski_net_demo.Dtos;
 using ski_net_demo.Errors;
+using ski_net_demo.Helpers;
 using SQLitePCL;
 
 namespace api.Controllers
@@ -38,20 +39,21 @@ namespace api.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productParams )
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productParams )
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(productParams); 
-
-
+            var countSpec = new ProductWithFiltersForCountSpecification(productParams);
+            var totalItems = await _productsRepo.CountAsync(spec);
             var products = await _productsRepo.ListAsync(spec);
-            var mappedProductsToDto =  _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
-            return Ok(mappedProductsToDto);
+            var data = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+           
+          
+            return Ok(new Pagination<ProductToReturnDto>(productParams.pageIndex, productParams.pageSize, totalItems, data));
         }
 
 
 
         [HttpGet("{id}")]
-
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
