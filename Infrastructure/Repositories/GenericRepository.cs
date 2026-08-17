@@ -18,8 +18,7 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-
-
+      
 
         public async Task<T> GetByIdAsync(int id)
         {
@@ -41,6 +40,11 @@ namespace Infrastructure.Repositories
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
         {
            return await ApplySpecification(spec).ToListAsync(); 
+        }
+
+          public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+           return await ApplySpecification(spec).CountAsync();
         }
 
 
