@@ -42,12 +42,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseStaticFiles();
-
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.UseStaticFiles();
 
+app.UseRouting();
+
+app.UseCors("CorsPolicy");
+
+app.MapControllers();
 
 
 using var scope = app.Services.CreateScope();
