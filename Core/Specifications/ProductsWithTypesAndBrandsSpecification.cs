@@ -43,7 +43,7 @@ namespace Core.Specifications
         public ProductsWithTypesAndBrandsSpecification(int id)
             : base(p => p.Id == id)
         {
-
+            
         }
 
 
