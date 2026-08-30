@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { IProduct } from './models/products';
-import { IPagination } from './models/pagination';
+import { Component } from '@angular/core';
+
 
 
 @Component({
@@ -12,29 +10,14 @@ import { IPagination } from './models/pagination';
 export class AppComponent {
   title = 'Skinet';
 
-  products: IProduct[] = [];
 
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
 
   ngOnInit(): void {
 
-    this.http.get<IPagination<IProduct[]>>('https://localhost:5001/api/products').subscribe({
-      next: ((response)=>{
-        this.products = response.data
-        
-        console.log(this.products);
-      }),
-
-      error: ((error)=>{
-        console.log(error);
-      }),
-
-      complete: (()=>{
-        console.log('Request completed');
-      })
-  })
-}
+ 
 
   }
+}
