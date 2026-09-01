@@ -67,5 +67,6 @@ export class ShopComponent implements OnInit {
   onTypeSelected(typeId: number) {
     this.typeIdSelected = typeId;
     this.getProducts();
+    console.log
   }
 }
