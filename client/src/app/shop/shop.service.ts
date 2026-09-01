@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { IPagination } from '../shared/models/pagination';
 import { IProduct } from '../shared/models/products';
 import { Itypes } from '../shared/models/types';
@@ -17,8 +17,16 @@ export class ShopService {
   baseUrl = 'https://localhost:5001/api/'
 
 
-  getProducts(){
-    return this.http.get<IPagination<IProduct[]>>(this.baseUrl + 'products')
+  getProducts(brandId?: number, typeId?: number){
+    let params = new HttpParams();
+
+    if(brandId)
+      params = params.append('brandId', brandId);
+
+    if(typeId)
+      params = params.append('typeId', typeId)
+
+    return this.http.get<IPagination<IProduct[]>>(this.baseUrl + 'products', {params})
   }
 
 

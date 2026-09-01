@@ -22,6 +22,8 @@ namespace api.Controllers
 
        readonly IMapper _mapper;
 
+
+
         public ProductsController(
             IGenericRepository<Product> productsRepo,
             IGenericRepository<ProductBrand> productsBrandRepo,
