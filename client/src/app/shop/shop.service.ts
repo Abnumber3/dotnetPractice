@@ -17,7 +17,7 @@ export class ShopService {
   baseUrl = 'https://localhost:5001/api/'
 
 
-  getProducts(brandId?: number, typeId?: number){
+  getProducts(brandId?: number, typeId?: number, sort?: string){
     let params = new HttpParams();
 
     if(brandId)
@@ -25,6 +25,9 @@ export class ShopService {
 
     if(typeId)
       params = params.append('typeId', typeId)
+
+    if(sort)
+      params = params.append('sort', sort)
 
     return this.http.get<IPagination<IProduct[]>>(this.baseUrl + 'products', {params})
   }
