@@ -4,6 +4,7 @@ import { IPagination } from '../shared/models/pagination';
 import { IProduct } from '../shared/models/products';
 import { Itypes } from '../shared/models/types';
 import { IBrands } from '../shared/models/brands';
+import { ShopParams } from '../shared/models/shopParams';
 
 
 
@@ -17,17 +18,19 @@ export class ShopService {
   baseUrl = 'https://localhost:5001/api/'
 
 
-  getProducts(brandId?: number, typeId?: number, sort?: string){
+  getProducts(shopParams: ShopParams){
     let params = new HttpParams();
 
-    if(brandId)
-      params = params.append('brandId', brandId);
+    if(shopParams.brandId > 0)
+      params = params.append('brandId', shopParams.brandId);
 
-    if(typeId)
-      params = params.append('typeId', typeId)
+    if(shopParams.typeId)
+      params = params.append('typeId', shopParams.typeId)
 
-    if(sort)
-      params = params.append('sort', sort)
+    if(shopParams.sort)
+      params = params.append('sort', shopParams.sort)
+    params = params.append('pageIndex', shopParams.pageNumber)
+    params = params.append('pageSize', shopParams.pageSize)
 
     return this.http.get<IPagination<IProduct[]>>(this.baseUrl + 'products', {params})
   }
@@ -41,4 +44,6 @@ export class ShopService {
   getBrands(){
     return this.http.get<IBrands[]>(this.baseUrl + 'products/brands')
   }
+
+
 }
