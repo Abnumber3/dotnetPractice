@@ -28,7 +28,7 @@ export class ShopService {
       params = params.append('typeId', shopParams.typeId)
 
     if(shopParams.sort)
-      params = params.append('sort', shopParams.sort)
+    params = params.append('sort', shopParams.sort)
     params = params.append('pageIndex', shopParams.pageNumber)
     params = params.append('pageSize', shopParams.pageSize)
 
