@@ -11,6 +11,8 @@ import { ShopParams } from '../shared/models/shopParams';
   styleUrls: ['./shop.component.scss'],
 })
 export class ShopComponent implements OnInit {
+
+  
   Products: IProduct[] = [];
   Brands: IBrands[] = [];
   Types: Itypes[] = [];
@@ -78,11 +80,13 @@ export class ShopComponent implements OnInit {
 
   onBrandSelected(brandId: number) {
     this.shopParams.brandId = brandId;
+    this.shopParams.pageNumber = 1;
     this.getProducts();
   }
 
   onTypeSelected(typeId: number) {
     this.shopParams.typeId = typeId;
+    this.shopParams.pageNumber = 1;
     this.getProducts();
     console.log
   }
@@ -101,5 +105,19 @@ export class ShopComponent implements OnInit {
 
   onSearch(){
     this.shopParams.search = this.searchTerm?.nativeElement.value
+    this.shopParams.pageNumber = 1;
+    this.getProducts();
+    
+  }
+
+  onReset(){
+    if(this.searchTerm){
+      this.searchTerm.nativeElement.value = '';
+      this.shopParams = new ShopParams();
+      this.shopParams.pageNumber = 1;
+      this.getProducts();
+      this.getBrands();
+      this.getTypes();
+    }
   }
 }

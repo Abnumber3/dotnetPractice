@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {PaginationModule} from "ngx-bootstrap/pagination";
 import { PagingHeaderComponent } from './paging-header/paging-header.component';
 import { PagerComponent } from './pager/pager.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -14,7 +15,8 @@ import { PagerComponent } from './pager/pager.component';
   ],
   imports: [
     CommonModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    FormsModule
   ],
 
   exports: [
