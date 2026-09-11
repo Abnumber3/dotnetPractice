@@ -3,9 +3,20 @@
     min-height: 25px;
     min-width: 25px;
     border-radius: 50%;
-    background: blue;
+    background: rgb(196, 20, 61);
     color: white;
     text-align: center;
     top: -12px;
     right: 32px;
+}
+
+a {
+    text-decoration: none;
+    color: #0f6cc9;
+    
+    &.active {
+        color: orange;
+    }
+
+
 }
