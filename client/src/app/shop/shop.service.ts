@@ -39,6 +39,10 @@ export class ShopService {
     return this.http.get<IPagination<IProduct[]>>(this.baseUrl + 'products', {params})
   }
 
+  getProduct(id: number){
+    return this.http.get<IProduct>(this.baseUrl + 'products/' + id)
+  }
+
 
   getTypes(){
     return this.http.get<Itypes[]>(this.baseUrl + 'products/types')
