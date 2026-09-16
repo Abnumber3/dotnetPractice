@@ -31,10 +31,12 @@ export class ProductDetailsComponent implements OnInit {
       this.shopService.getProduct(+id).subscribe({
         next: ((product)=>{
           this.product = product
+          console.log(this.product?.pictureUrl)
         }),
 
         error: ((err)=>{
           console.log(err)
+          console.log(this.product?.pictureUrl)
         })
       })
     }
