@@ -22,6 +22,7 @@ import { ServerErrorComponent } from './server-error/server-error.component';
 
   exports: [
     NavBarComponent,
+    
   ]
 })
 export class CoreModule { }
