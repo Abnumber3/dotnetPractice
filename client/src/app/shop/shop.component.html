@@ -62,11 +62,16 @@
            >Reset</button>
         </div>
       </div>
+
+      <!-- hero segment -->
       <div class="row row-cols-3 g-3 mb-4">
         <div class="col" *ngFor="let products of Products">
           <app-product-item [product]="products"></app-product-item>
         </div>
       </div>
+
+
+      <!-- pagination -->
       <div class="d-flex justify-content-center">
         <app-pager
           [totalCount]="totalCount"
