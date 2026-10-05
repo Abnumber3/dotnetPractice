@@ -6,7 +6,6 @@
 
 .image :hover {
     opacity: 1;
-
     & button{
         transform: none;
         opacity: 1;
@@ -22,9 +21,23 @@
     left: 0;
     background: rgba(255, 255, 255, 0.5); 
     opacity: 0;
-    transition: all 0.5s'
+    transition: all 0.5s;
 
 
     & button{
+        z-index: 1000;
+        transition: all 0.5s;
     }
+    
+    & button:first-of-type{
+        transform: translateX(-20px);
+    }
+
+    & button:last-of-type{
+        transform: translateX(20px);
+    }
+
+
+
+
 }
