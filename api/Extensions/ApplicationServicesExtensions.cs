@@ -8,6 +8,7 @@ using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ski_net_demo.Errors;
+using StackExchange.Redis;
 
 namespace ski_net_demo.Extensions
 {
@@ -19,6 +20,16 @@ namespace ski_net_demo.Extensions
             {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
+            // Add Redis connection multiplexer as a singleton service
+            services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+               var connectionString = config.GetConnectionString("Redis")
+               ?? throw new InvalidOperationException("Redis connection string is not configured.");
+
+               var options = ConfigurationOptions.Parse(connectionString);
+
+               return ConnectionMultiplexer.Connect(options);
+            }); 
 
 
             services.AddScoped<IProductRepository, ProductRepository>();

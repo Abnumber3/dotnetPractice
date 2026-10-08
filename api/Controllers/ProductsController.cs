@@ -66,18 +66,8 @@ namespace api.Controllers
                 return NotFound(new ApiResponse(404));
             }
 
-            return new ProductToReturnDto
-            {
-                 
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                PictureUrl = product.PictureUrl,
-                Price = product.Price,
-                ProductBrand = product.ProductBrand?.Name,  
-                ProductType = product.ProductType?.Name,
+            return   _mapper.Map<ProductToReturnDto>(product);
 
-            };
         }
 
 
