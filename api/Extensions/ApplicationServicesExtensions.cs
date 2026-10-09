@@ -33,6 +33,7 @@ namespace ski_net_demo.Extensions
 
 
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
