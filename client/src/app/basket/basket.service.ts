@@ -52,16 +52,17 @@ export class BasketService {
 
 
 // maps the product item to the basket item and returns the basket item
-   private itemToBasketItemMapper(item: IProduct): IBasketItem{
-      return {
+private itemToBasketItemMapper(item: IProduct): IBasketItem {
+    return {
         id: item.id,
         productName: item.name,
+        pictureUrl: item.pictureUrl,
         price: item.price,
         quantity: 0,
-        brand: item.productBrand,
-        type: item.productType
-      };
-    }
+        productBrand: item.productBrand,
+        productType: item.productType
+    };
+}
 
     //local storage is basically a referance for the browser to retrieve your basket form redis 
 
@@ -76,7 +77,7 @@ export class BasketService {
 
     addOrUpdateItem(items: IBasketItem[], itemToAdd: IBasketItem, quantity: number): IBasketItem[]{
       const item = items.find((x)=>{
-         x.id === itemToAdd.id
+        return x.id === itemToAdd.id
       });
       if(item){
         item.quantity += quantity;
@@ -98,6 +99,7 @@ export class BasketService {
       //does a basket currently exist if not we create one
       const basket = this.getCurrentBasketValue() ?? this.createBasket();
       basket.items = this.addOrUpdateItem(basket.items, itemToAdd, quantity)
+      this.updateBasket(basket);
     }
 
     

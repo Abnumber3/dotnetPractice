@@ -6,10 +6,10 @@ export interface IBasketItem {
     productName: string;
     price: number;
     quantity: number;
-    brand: string;
-    type: string;
+    pictureUrl: string;
+    productBrand: string;
+    productType: string;
 }
-
 
 export interface IBasket {
     id: string;
