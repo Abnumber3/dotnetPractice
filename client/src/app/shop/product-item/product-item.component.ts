@@ -12,6 +12,8 @@ export class ProductItemComponent {
   @Input() product?: IProduct
 
 
+
+
   constructor(private basketService: BasketService ){}
 
 

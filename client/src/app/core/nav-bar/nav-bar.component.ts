@@ -15,9 +15,9 @@ export class NavBarComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.basketService.basketSource$.pipe(
+   this.basketQuantity$ = this.basketService.basketSource$.pipe(
       map((basket)=>{
-        basket?.items.reduce((total, item)=>{
+       return basket?.items.reduce((total, item)=>{
           return total + item.quantity;
         },0) ?? 0
       })

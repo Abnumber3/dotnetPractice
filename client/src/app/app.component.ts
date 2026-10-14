@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
+import { BasketService } from './basket/basket.service';
 
 
 
@@ -14,12 +15,16 @@ export class AppComponent {
 
 
 
-  constructor() {}
+  constructor(private basketService: BasketService) {}
 
 
   ngOnInit(): void {
+    const basketId = localStorage.getItem('basketId')
+    if(basketId){
+      this.basketService.getbasket(basketId)
 
- 
+      console.log(basketId)
+    }
 
   }
 }
