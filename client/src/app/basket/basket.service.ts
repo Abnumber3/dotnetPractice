@@ -40,6 +40,20 @@ export class BasketService {
     return this.basketSource.value;
   }
 
+  addQuantity(basketItem: IBasketItem){
+   const basket = this.getCurrentBasketValue();
+
+   if(!basket){
+    return
+   }
+  const addedItem = this.addOrUpdateItem(
+     basket.items,
+     basketItem,
+     1 
+    )
+    return this.updateBasket(basket)
+
+  }
 
 
   // maps the product item to the basket item and returns the basket item
