@@ -21,3 +21,12 @@ export class Basket implements IBasket {
     id = cuid();
     items: IBasketItem[] = [];
 }
+
+
+
+export interface BasketTotals {
+    shipping: number;
+    subtotal: number;
+    total: number;
+
+}

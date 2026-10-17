@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Basket, IBasketItem } from '../shared/models/basket';
+import { Basket, BasketTotals, IBasketItem } from '../shared/models/basket';
 import { HttpClient } from '@angular/common/http';
 import { IProduct } from '../shared/models/products';
 
@@ -14,6 +14,9 @@ export class BasketService {
   // creates a new instance of the basket class and sets the basketSource to the value of the basket. BehaviorSubject is a type of observable that allows you to set an initial value and then emit new values to subscribers. In this case, the initial value is null, and the basketSource$ observable will emit new values whenever the basketSource is updated. This allows other components in the application to subscribe to the basketSource$ observable and receive updates whenever the basket is updated.
   private basketSource = new BehaviorSubject<Basket | null>(null);
   basketSource$ = this.basketSource.asObservable();
+
+  private basketTotalSource = new BehaviorSubject<BasketTotals | null>(null);
+  basketTotalSource$ = this.basketTotalSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -40,21 +43,36 @@ export class BasketService {
     return this.basketSource.value;
   }
 
-  addQuantity(basketItem: IBasketItem){
-   const basket = this.getCurrentBasketValue();
+  addQuantity(basketItem: IBasketItem) {
+    const basket = this.getCurrentBasketValue();
 
-   if(!basket){
-    return
-   }
-  const addedItem = this.addOrUpdateItem(
-     basket.items,
-     basketItem,
-     1 
-    )
-    return this.updateBasket(basket)
-
+    if (!basket) {
+      return;
+    }
+    const addedItem = this.addOrUpdateItem(basket.items, basketItem, 1);
+    return this.updateBasket(basket);
   }
 
+  calculateBasketTotals() {
+    const basket = this.getCurrentBasketValue();
+
+    if (!basket) {
+      return;
+    }
+    const shipping = 0;
+    const subtotal = basket.items.reduce((a, item) => {
+      return (item.price * item.quantity) + a;
+    }, 0);
+    const total = subtotal + shipping
+
+    this.basketTotalSource.next({shipping, subtotal, total})
+  }
+
+  // reduceQuanity(basketItem: IBasketItem){
+  //   const basket = this.getCurrentBasketValue();
+
+  //   if(basket)
+  // }
 
   // maps the product item to the basket item and returns the basket item
   private itemToBasketItemMapper(item: IProduct): IBasketItem {
