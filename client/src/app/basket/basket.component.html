@@ -45,6 +45,7 @@
               <td class="align-middle">
                 <div class="d-flex align-items-center">
                   <i
+                    (click)="decreaseFromBasket(item)"
                     class="fa fa-minus-circle text-warning me-2"
                     style="cursor: pointer; font-size: 2em;"
                   ></i>
@@ -54,7 +55,7 @@
                   </strong>
 
                   <i
-                    (click)="addItemToBasket(item)"
+                    (click)="addToBasket(item)"
                     class="fa fa-plus-circle text-warning ms-2"
                     style="cursor: pointer; font-size: 2em;"
                   ></i>

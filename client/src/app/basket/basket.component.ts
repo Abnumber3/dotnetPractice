@@ -12,8 +12,15 @@ export class BasketComponent {
   constructor(public basketService: BasketService){}
 
 
-  addItemToBasket(newItem: IBasketItem){
-    this.basketService.addQuantity(newItem);
+
+  
+
+  addToBasket(basketItem: IBasketItem){
+    this.basketService.addQuantity(basketItem);
+  }
+
+  decreaseFromBasket(basketItem: IBasketItem){
+    this.basketService.decreaseQuantity(basketItem);
   }
 
   

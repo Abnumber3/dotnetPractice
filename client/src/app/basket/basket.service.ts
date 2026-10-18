@@ -15,9 +15,7 @@ export class BasketService {
   private basketSource = new BehaviorSubject<Basket | null>(null);
   basketSource$ = this.basketSource.asObservable();
 
-  private basketTotalSource = new BehaviorSubject<BasketTotals | null>(null);
-  basketTotalSource$ = this.basketTotalSource.asObservable();
-
+  // private basketTotalSource 
   constructor(private http: HttpClient) {}
 
   // gets basket from the api and sets the basketSource to the value of the basket
@@ -44,35 +42,47 @@ export class BasketService {
   }
 
   addQuantity(basketItem: IBasketItem) {
-    const basket = this.getCurrentBasketValue();
+   const currentBasket = this.getCurrentBasketValue();
+   if(!currentBasket){
+    return;
+   }
+   const itemToAdd = basketItem;
+   const currentBasketItems = currentBasket.items;
+   const quantity = 1;
+   this.addOrUpdateItem(currentBasketItems, itemToAdd, quantity)
+   return this.updateBasket(currentBasket);
+  }
 
-    if (!basket) {
+
+  decreaseQuantity(basketItem: IBasketItem){
+    const currentBasket = this.getCurrentBasketValue();
+
+    if(!currentBasket){
       return;
     }
-    const addedItem = this.addOrUpdateItem(basket.items, basketItem, 1);
-    return this.updateBasket(basket);
-  }
+
+    const items = currentBasket.items.find((x)=>{
+      x.id === basketItem.id;
+    })
+
+    if(items?.quantity && items.quantity > 0){
+      items.quantity--
+    } else {
+      currentBasket.items.filter((x)=>{
+        return x.id !== basketItem.id
+      })
+    }
+
+    return this.updateBasket(currentBasket);
+
+} 
 
   calculateBasketTotals() {
-    const basket = this.getCurrentBasketValue();
-
-    if (!basket) {
-      return;
-    }
-    const shipping = 0;
-    const subtotal = basket.items.reduce((a, item) => {
-      return (item.price * item.quantity) + a;
-    }, 0);
-    const total = subtotal + shipping
-
-    this.basketTotalSource.next({shipping, subtotal, total})
+  
   }
 
-  // reduceQuanity(basketItem: IBasketItem){
-  //   const basket = this.getCurrentBasketValue();
 
-  //   if(basket)
-  // }
+
 
   // maps the product item to the basket item and returns the basket item
   private itemToBasketItemMapper(item: IProduct): IBasketItem {
@@ -113,6 +123,8 @@ export class BasketService {
     }
     return items;
   }
+
+
 
   // 1. maps raw product item to basket item (see interface)
   // 2. checks to see if a basket exists if not it creates basket
