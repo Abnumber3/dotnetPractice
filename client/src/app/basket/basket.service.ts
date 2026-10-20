@@ -62,17 +62,16 @@ export class BasketService {
     }
 
     const items = currentBasket.items.find((x)=>{
-      x.id === basketItem.id;
+     return x.id === basketItem.id;
     })
 
-    if(items?.quantity && items.quantity > 0){
+    if(items?.quantity && items.quantity > 1){
       items.quantity--
     } else {
-      currentBasket.items.filter((x)=>{
+      currentBasket.items = currentBasket.items.filter((x)=>{
         return x.id !== basketItem.id
       })
     }
-
     return this.updateBasket(currentBasket);
 
 } 
