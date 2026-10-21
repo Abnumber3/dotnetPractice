@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Basket, BasketTotals, IBasketItem } from '../shared/models/basket';
+import { Basket, IBasketTotals, IBasketItem } from '../shared/models/basket';
 import { HttpClient } from '@angular/common/http';
 import { IProduct } from '../shared/models/products';
 
@@ -15,13 +15,15 @@ export class BasketService {
   private basketSource = new BehaviorSubject<Basket | null>(null);
   basketSource$ = this.basketSource.asObservable();
 
-  // private basketTotalSource 
+  private basketTotalSource = new BehaviorSubject<IBasketTotals | null>(null);
+  basketTotalSource$ = this.basketTotalSource.asObservable();
+
   constructor(private http: HttpClient) {}
 
   // gets basket from the api and sets the basketSource to the value of the basket
 
   getbasket(id: string) {
-    return this.http.get<Basket>(this.baseUrl + 'basket?id=' + id).subscribe({
+    return this.http.get<Basket>(this.baseUrl + 'basket/' + id).subscribe({
       next: (basket) => {
         this.basketSource.next(basket);
       },
@@ -33,55 +35,84 @@ export class BasketService {
     return this.http.post<Basket>(this.baseUrl + 'basket', basket).subscribe({
       next: (basket) => {
         this.basketSource.next(basket);
+        this.calculateBasketTotals();
       },
     });
   }
+
+  deleteBasket(id: string) {
+    return this.http.delete(this.baseUrl + 'basket/' + id)
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   getCurrentBasketValue() {
     return this.basketSource.value;
   }
 
   addQuantity(basketItem: IBasketItem) {
-   const currentBasket = this.getCurrentBasketValue();
-   if(!currentBasket){
-    return;
-   }
-   const itemToAdd = basketItem;
-   const currentBasketItems = currentBasket.items;
-   const quantity = 1;
-   this.addOrUpdateItem(currentBasketItems, itemToAdd, quantity)
-   return this.updateBasket(currentBasket);
+    const currentBasket = this.getCurrentBasketValue();
+    if (!currentBasket) {
+      return;
+    }
+    const itemToAdd = basketItem;
+    const currentBasketItems = currentBasket.items;
+    const quantity = 1;
+    this.addOrUpdateItem(currentBasketItems, itemToAdd, quantity);
+    return this.updateBasket(currentBasket);
   }
 
-
-  decreaseQuantity(basketItem: IBasketItem){
+  decreaseQuantity(basketItem: IBasketItem) {
     const currentBasket = this.getCurrentBasketValue();
 
-    if(!currentBasket){
+    if (!currentBasket) {
       return;
     }
 
-    const items = currentBasket.items.find((x)=>{
-     return x.id === basketItem.id;
-    })
+    // find the basket with matching ids
+    const items = currentBasket.items.find((x) => {
+      return x.id === basketItem.id;
+    });
 
-    if(items?.quantity && items.quantity > 1){
-      items.quantity--
+    if (items?.quantity && items.quantity > 1) {
+      items.quantity--;
     } else {
-      currentBasket.items = currentBasket.items.filter((x)=>{
-        return x.id !== basketItem.id
-      })
+      currentBasket.items = currentBasket.items.filter((x) => {
+        return x.id !== basketItem.id;
+      });
     }
     return this.updateBasket(currentBasket);
-
-} 
-
-  calculateBasketTotals() {
-  
   }
 
+  calculateBasketTotals() {
+    const basket = this.getCurrentBasketValue();
+    if (!basket) {
+      return;
+    }
+    const shippingTotal: number = 0;
+    let total: number = 0;
+    const subtotal = basket.items.reduce((acc, item) => {
+      return acc + item.quantity * item.price;
+    }, 0);
+    total = subtotal + shippingTotal;
 
+    //update implement the basketTotals Interface to create a new Basket total
 
+    this.basketTotalSource.next({
+      shipping: shippingTotal,
+      subtotal: subtotal,
+      total: total,
+    });
+  }
 
   // maps the product item to the basket item and returns the basket item
   private itemToBasketItemMapper(item: IProduct): IBasketItem {
@@ -122,8 +153,6 @@ export class BasketService {
     }
     return items;
   }
-
-
 
   // 1. maps raw product item to basket item (see interface)
   // 2. checks to see if a basket exists if not it creates basket

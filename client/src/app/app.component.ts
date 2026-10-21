@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import { BasketService } from './basket/basket.service';
+import { Observable } from 'rxjs';
 
 
 
@@ -11,7 +12,8 @@ import { BasketService } from './basket/basket.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Skinet';
+
+
 
 
 
@@ -22,9 +24,11 @@ export class AppComponent {
     const basketId = localStorage.getItem('basketId')
     if(basketId){
       this.basketService.getbasket(basketId)
-
       console.log(basketId)
     }
+
+
+
 
   }
 }
