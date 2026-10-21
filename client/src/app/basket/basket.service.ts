@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Basket, IBasketTotals, IBasketItem } from '../shared/models/basket';
 import { HttpClient } from '@angular/common/http';
@@ -41,7 +41,13 @@ export class BasketService {
   }
 
   deleteBasket(id: string) {
-    return this.http.delete(this.baseUrl + 'basket/' + id)
+    return this.http.delete(this.baseUrl + 'basket/' + id).pipe(
+      tap(()=>{
+        this.basketSource.next(null);
+        this.basketTotalSource.next(null);
+      })
+
+    )
   }
 
 
