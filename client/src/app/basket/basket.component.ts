@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent {
-    basketTotal$: Observable<IBasketTotals|null>;
     baseUrl = environment.apiUrl
     
 
@@ -19,7 +18,7 @@ export class BasketComponent {
     public basketService: BasketService,
     public httpClent: HttpClient
   ){
-    this.basketTotal$ = this.basketService.basketTotalSource$
+  
   }
 
 

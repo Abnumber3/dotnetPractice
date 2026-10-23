@@ -21,7 +21,7 @@ export class AppComponent {
 
 
   ngOnInit(): void {
-    const basketId = localStorage.getItem('basketId')
+    const basketId = localStorage.getItem('basket_Id')
     if(basketId){
       this.basketService.getbasket(basketId)
       console.log(basketId)
