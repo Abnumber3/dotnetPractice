@@ -26,6 +26,7 @@ export class BasketService {
     return this.http.get<Basket>(this.baseUrl + 'basket/' + id).subscribe({
       next: (basket) => {
         this.basketSource.next(basket);
+        this.calculateBasketTotals();
       },
     });
   }

@@ -14,6 +14,7 @@ export class OrderTotalsComponent {
 
   constructor(private basketService: BasketService){
     this.basketTotal$ = this.basketService.basketTotalSource$
+    console.log(this.basketTotal$)
   }
 
 
