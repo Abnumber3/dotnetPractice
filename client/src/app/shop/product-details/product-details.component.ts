@@ -3,6 +3,7 @@ import { IProduct } from 'src/app/shared/models/products';
 import { ShopService } from '../shop.service';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbService } from 'xng-breadcrumb';
+import { BasketService } from 'src/app/basket/basket.service';
 
 
 
@@ -19,7 +20,8 @@ export class ProductDetailsComponent implements OnInit {
  constructor(
   private route: ActivatedRoute,
   private shopService: ShopService,
-  private bcService: BreadcrumbService
+  private bcService: BreadcrumbService,
+  private basketService: BasketService
   
   
 

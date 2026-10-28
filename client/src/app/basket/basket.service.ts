@@ -85,7 +85,7 @@ export class BasketService {
       return;
     }
 
-    // find the basket with matching ids
+    // find the basketitem with matching ids
     const items = currentBasket.items.find((x) => {
       return x.id === basketItem.id;
     });
@@ -108,7 +108,7 @@ export class BasketService {
     const shippingTotal: number = 0;
     let total: number = 0;
     const subtotal = basket.items.reduce((acc, item) => {
-      return acc + item.quantity * item.price;
+      return acc + (item.quantity * item.price);
     }, 0);
     total = subtotal + shippingTotal;
 
