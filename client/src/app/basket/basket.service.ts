@@ -80,11 +80,9 @@ export class BasketService {
 
   decreaseQuantity(basketItem: IBasketItem) {
     const currentBasket = this.getCurrentBasketValue();
-
     if (!currentBasket) {
       return;
     }
-
     // find the basketitem with matching ids
     const items = currentBasket.items.find((x) => {
       return x.id === basketItem.id;
@@ -98,6 +96,11 @@ export class BasketService {
       });
     }
     return this.updateBasket(currentBasket);
+  }
+
+  decreaseQuantityItemFromProduct(product: IProduct){
+   const productToItem = this.itemToBasketItemMapper(product);
+   this.decreaseQuantity(productToItem);
   }
 
   calculateBasketTotals() {
@@ -122,7 +125,7 @@ export class BasketService {
   }
 
   // maps the product item to the basket item and returns the basket item
-  private itemToBasketItemMapper(item: IProduct): IBasketItem {
+   itemToBasketItemMapper(item: IProduct): IBasketItem {
     return {
       id: item.id,
       productName: item.name,
