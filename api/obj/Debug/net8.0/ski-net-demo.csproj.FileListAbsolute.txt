@@ -137,3 +137,10 @@ C:\Users\there\OneDrive\Desktop\ski-net-demo\api\obj\Debug\net8.0\swae.build.ex.
 C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\ski-net-demo.staticwebassets.runtime.json
+C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\RESPite.dll
+C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\StackExchange.Redis.dll
+C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\System.IO.Hashing.dll
+C:\Users\there\OneDrive\Desktop\ski-net-demo\api\bin\Debug\net8.0\System.IO.Pipelines.dll
