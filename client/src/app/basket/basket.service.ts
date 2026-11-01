@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Basket, IBasketTotals, IBasketItem } from '../shared/models/basket';
 import { HttpClient } from '@angular/common/http';
@@ -174,5 +174,17 @@ export class BasketService {
     const basket = this.getCurrentBasketValue() ?? this.createBasket();
     basket.items = this.addOrUpdateItem(basket.items, itemToAdd, quantity);
     this.updateBasket(basket);
+  }
+
+
+  getProductQuantity(productId: number){
+    return this.basketSource$.pipe(
+      map((basket)=>{
+        const basketItem = basket?.items.find((item)=>{
+          return item.id === productId
+        });
+        return basketItem?.quantity ?? 0
+      })
+    )
   }
 }
