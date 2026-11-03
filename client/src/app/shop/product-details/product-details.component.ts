@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasketItem } from 'src/app/shared/models/basket';
-import { find, map, Observable } from 'rxjs';
+import { find, map, Observable, take } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -68,14 +68,26 @@ export class ProductDetailsComponent implements OnInit {
 
 
   addToCart(product: IProduct){
-    this.basketService.addItemToBasket(product, this.productQuantity)
+    this.currentProductQuantity$?.pipe(
+      take(1)
+    ).subscribe({
+      next: ((currentQuan)=>{
+        if(currentQuan === 0){
+          this.basketService.addItemToBasket(product)
+        }else {
+          this.basketService.addItemToBasket(product, this.productQuantity)
+        }
+      })
+    })
     this.productQuantity = 1;
+    console.log(this.productQuantity)
   }
 
    
 
   findProductQuanity(productId: number) {
   const currentItemQuantity = this.basketService.getProductQuantity(productId);
+
   this.currentProductQuantity$ = currentItemQuantity;
 }
 

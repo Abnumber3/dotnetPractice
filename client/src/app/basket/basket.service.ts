@@ -32,14 +32,23 @@ export class BasketService {
   }
 
   // updates the basket in the api and sets the basketSource to the value of the basket
-  updateBasket(basket: Basket) {
-    return this.http.post<Basket>(this.baseUrl + 'basket', basket).subscribe({
-      next: (basket) => {
-        this.basketSource.next(basket);
-        this.calculateBasketTotals();
-      },
-    });
-  }
+updateBasket(basket: Basket) {
+  console.log('Basket being sent:', basket);
+
+  return this.http.post<Basket>(
+    this.baseUrl + 'basket',
+    basket
+  ).subscribe({
+    next: (basket) => {
+      this.basketSource.next(basket);
+      this.calculateBasketTotals();
+    },
+    error: (err) => {
+      console.log('API Error:', err);
+      console.log('Validation Errors:', err.error?.errors);
+    }
+  });
+}
 
   deleteBasket(id: string) {
     return this.http.delete(this.baseUrl + 'basket/' + id).pipe(
@@ -168,13 +177,24 @@ export class BasketService {
   // 2. checks to see if a basket exists if not it creates basket
   // 3. adds or updates current basket with new items client selects
 
-  addItemToBasket(item: IProduct, quantity = 1) {
-    const itemToAdd = this.itemToBasketItemMapper(item);
-    //does a basket currently exist if not we create one
-    const basket = this.getCurrentBasketValue() ?? this.createBasket();
-    basket.items = this.addOrUpdateItem(basket.items, itemToAdd, quantity);
-    this.updateBasket(basket);
-  }
+addItemToBasket(item: IProduct, quantity = 1) {
+  console.log('Product:', item);
+  console.log('Product Brand:', item.productBrand);
+  console.log('Product Type:', item.productType);
+
+  const itemToAdd = this.itemToBasketItemMapper(item);
+
+  const basket =
+    this.getCurrentBasketValue() ?? this.createBasket();
+
+  basket.items = this.addOrUpdateItem(
+    basket.items,
+    itemToAdd,
+    quantity
+  );
+
+  this.updateBasket(basket);
+}
 
 
   getProductQuantity(productId: number){
