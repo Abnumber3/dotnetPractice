@@ -15,7 +15,7 @@ import { find, map, Observable, take } from 'rxjs';
 export class ProductDetailsComponent implements OnInit {
   product?: IProduct;
 
-  currentProductQuantity$?:Observable<number>
+  currentProductQuantity$?: Observable<number>;
   productQuantity: number = 1;
 
   basket$ = this.basketService.basketSource$;
@@ -38,9 +38,9 @@ export class ProductDetailsComponent implements OnInit {
         next: (product) => {
           this.product = product;
           this.bcService.set('@productDetails', product.name);
-          this.findProductQuanity(product.id)
+          this.findProductQuanity(product.id);
           console.log(this.product?.pictureUrl);
-          console.log(this.currentProductQuantity$)
+          console.log(this.currentProductQuantity$);
         },
 
         error: (err) => {
@@ -52,43 +52,30 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   increaseItemQuantity() {
-    this.productQuantity++
+    this.productQuantity++;
   }
 
   decreaseItemQuantity() {
     {
-      if(this.productQuantity && this.productQuantity > 1){
-        this.productQuantity--
+      if (this.productQuantity && this.productQuantity > 1) {
+        this.productQuantity--;
       } else {
         return;
       }
     }
-    console.log(this.productQuantity)
+    console.log(this.productQuantity);
   }
 
-
-  addToCart(product: IProduct){
-    this.currentProductQuantity$?.pipe(
-      take(1)
-    ).subscribe({
-      next: ((currentQuan)=>{
-        if(currentQuan === 0){
-          this.basketService.addItemToBasket(product)
-        }else {
-          this.basketService.addItemToBasket(product, this.productQuantity)
-        }
-      })
-    })
+  addToCart(product: IProduct) {
+    this.basketService.addItemToBasket(product, this.productQuantity);
     this.productQuantity = 1;
-    console.log(this.productQuantity)
+    console.log(this.productQuantity);
   }
-
-   
 
   findProductQuanity(productId: number) {
-  const currentItemQuantity = this.basketService.getProductQuantity(productId);
+    const currentItemQuantity =
+      this.basketService.getProductQuantity(productId);
 
-  this.currentProductQuantity$ = currentItemQuantity;
-}
-
+    this.currentProductQuantity$ = currentItemQuantity;
+  }
 }
