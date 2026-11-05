@@ -18,7 +18,7 @@ namespace Core.Specifications
             AddInclude(p => p.ProductBrand);
             AddOrderBy(p => p.Name);
             ApplyPaging(productParams.pageSize * (productParams.pageIndex - 1), productParams.pageSize);
-            
+
 
 
             if (!string.IsNullOrEmpty(productParams.Sort))
@@ -33,7 +33,7 @@ namespace Core.Specifications
                         break;
                     default:
                         AddOrderBy(p => p.Name);
-                        break;  
+                        break;
                 }
             }
         }
@@ -43,7 +43,8 @@ namespace Core.Specifications
         public ProductsWithTypesAndBrandsSpecification(int id)
             : base(p => p.Id == id)
         {
-            
+            AddInclude(p => p.ProductType);
+            AddInclude(p => p.ProductBrand);
         }
 
 

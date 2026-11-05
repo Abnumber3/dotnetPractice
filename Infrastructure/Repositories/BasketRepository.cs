@@ -14,26 +14,35 @@ namespace Infrastructure.Repositories
     public class BasketRepository : IBasketRepository
     {
         private readonly StackExchange.Redis.IDatabase _database;
-     
+
         public BasketRepository(IConnectionMultiplexer redis)
         {
             _database = redis.GetDatabase();
             
         }
 
-        public Task<bool> DeleteBasketAsync(string basketId)
+
+
+
+
+        public async Task<bool> DeleteBasketAsync(string basketId)
         {
-            throw new NotImplementedException();
+           return await _database.KeyDeleteAsync(basketId);
         }
+
+
+
 
         public async Task<CustomerBasket> GetBasketAsync(string basketId)
         {
             var data = await _database.StringGetAsync(basketId);
 
-          
 
-            return data.IsNullOrEmpty ? null : System.Text.Json.JsonSerializer.Deserialize<CustomerBasket>(data.ToString());
+            return  data.IsNullOrEmpty ? null : System.Text.Json.JsonSerializer.Deserialize<CustomerBasket>(data.ToString());
         }
+
+
+        
 
         public async Task<CustomerBasket> UpdateOrCreateBasketAsync(CustomerBasket basket)
         {
