@@ -20,9 +20,9 @@ namespace Core.Entities.Identity
 
         public string? State { get; set; }
 
-        public string? ZipCode { get; set; }
+        public string? Zipcode { get; set; }
 
-        public required string AppUserId { get; set; }
+        public  string AppUserId { get; set; } = null!;
 
         public AppUser? AppUser { get; set; }
 

@@ -20,6 +20,9 @@ namespace ski_net_demo.Extensions
             {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
+
+
+            
             // Add Redis connection multiplexer as a singleton service
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {

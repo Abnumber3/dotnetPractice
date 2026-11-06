@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\API\\ski-net-demo.csproj": {}
+    "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\api\\ski-net-demo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\API\\ski-net-demo.csproj": {
+    "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\api\\ski-net-demo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\API\\ski-net-demo.csproj",
+        "projectUniqueName": "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\api\\ski-net-demo.csproj",
         "projectName": "ski-net-demo",
-        "projectPath": "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\API\\ski-net-demo.csproj",
+        "projectPath": "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\api\\ski-net-demo.csproj",
         "packagesPath": "C:\\Users\\there\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\API\\obj\\",
+        "outputPath": "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\there\\AppData\\Roaming\\NuGet\\NuGet.Config"

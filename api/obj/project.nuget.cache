@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lxfHXqO4Sdk=",
+  "dgSpecHash": "9x/4TCYGS5o=",
   "success": true,
-  "projectFilePath": "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\API\\ski-net-demo.csproj",
+  "projectFilePath": "C:\\Users\\there\\OneDrive\\Desktop\\ski-net-demo\\api\\ski-net-demo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\there\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\there\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -17,6 +17,12 @@ namespace ski_net_demo.Extensions
                 opt.UseSqlite(config.GetConnectionString("IdentityConnection"));
             });
 
+
+            services.AddIdentityCore<AppUser>(opt =>
+            {
+               //add options here if needed
+            })  ;
+
             return services;
         }
         
