@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Identity;
 using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ski_net_demo.Extensions
@@ -21,10 +22,16 @@ namespace ski_net_demo.Extensions
             services.AddIdentityCore<AppUser>(opt =>
             {
                //add options here if needed
-            })  ;
+            })
+            .AddEntityFrameworkStores<AppIdentityDbContext>()
+            .AddSignInManager<SignInManager<AppUser>>();
 
-            return services;
+            services.AddAuthentication();
+            services.AddAuthorization();
+             return services;
+            
         }
+       
         
     }
 }
