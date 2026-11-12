@@ -1,7 +1,9 @@
+using Core.Entities.Identity;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ski_net_demo.Errors;
@@ -57,18 +59,27 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-
+//viable services 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<StoreContext>();
 var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+var userManager = services.GetRequiredService<UserManager<AppUser>>();
+
+//this logs errors 
 var logger = services.GetRequiredService<ILogger<Program>>();
 
 
 try
 {
+    //MigrateAsync() database check and then updates it/creates it if none exist
     await context.Database.MigrateAsync();
-    await StoreContextSeed.SeedAsync(context); 
+    await identityContext.Database.MigrateAsync();
+
+    //These seed the database with initilized data context/usermanager
+    await StoreContextSeed.SeedAsync(context);
+    await AppIdentityDbContextSeed.SeedUserAsync(userManager);
+
 }
 catch (Exception ex)
 {
