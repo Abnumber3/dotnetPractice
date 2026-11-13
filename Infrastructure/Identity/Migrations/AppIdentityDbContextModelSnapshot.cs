@@ -17,6 +17,42 @@ namespace Infrastructure.Identity.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.33");
 
+            modelBuilder.Entity("Core.Entities.Identity.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("State")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Zipcode")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
+
+                    b.ToTable("Address");
+                });
+
             modelBuilder.Entity("Core.Entities.Identity.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -24,9 +60,6 @@ namespace Infrastructure.Identity.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -215,6 +248,17 @@ namespace Infrastructure.Identity.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Core.Entities.Identity.Address", b =>
+                {
+                    b.HasOne("Core.Entities.Identity.AppUser", "AppUser")
+                        .WithOne("Address")
+                        .HasForeignKey("Core.Entities.Identity.Address", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -264,6 +308,11 @@ namespace Infrastructure.Identity.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Identity.AppUser", b =>
+                {
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }
